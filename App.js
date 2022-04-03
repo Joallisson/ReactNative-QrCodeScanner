@@ -13,25 +13,25 @@ export default function App() {
     })();
   }, []);
 
-  const handleBarCodeScanned = ({ type, data }) => { //
+  const handleBarCodeScanned = ({ type, data /*O tipo de código e as informações sendo passadas como props*/}) => { //Lidar comk o códio qrcode escaneado, Essa constante muda estado de scanned para true e manda um alert para o usuário
     setScanned(true);
     alert(`QR Code do tipo de código: "${type}" e, a informação: "${data}" Foi escaneada!`);
   };
 
-  if (hasPermission === null) {
-    return <Text>Requesting for camera permission</Text>;
+  if (hasPermission === null) { //Senão tiver permissão para usar a câmera, retorna uma mensagem para o usuário
+    return <Text>Esta aplicação requer a permissão do usuo da câmera</Text>;
   }
-  if (hasPermission === false) {
-    return <Text>No access to camera</Text>;
+  if (hasPermission === false) { //Se a permissão for negada, retorna uma mensagem para o usuário
+    return <Text>Sem permissão para usar a câmera</Text>;
   }
 
   return (
     <View style={styles.container}>
       <BarCodeScanner
-        onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-        style={StyleSheet.absoluteFillObject}
+        onBarCodeScanned={scanned ? undefined : handleBarCodeScanned /*Se a camera já escaneou o qrcode então, pausa o scanner, mas senão tiver sido escaneado, então chama a contante handleBarCodeScanned para executar a função de escnear*/}
+        style={StyleSheet.absoluteFillObject /*A câmera usa tela inteira*/}
       />
-      {scanned && <Button title={'Clicque para escanear novamente'} onPress={() => setScanned(false)} />}
+      {scanned && <Button title={'Clicque para escanear novamente'} onPress={() => setScanned(false)} /> /*Botão que se pressionado muda o estado de scanned para false e a câmera começa a scanear novamente*/}
     </View>
   );
 }
