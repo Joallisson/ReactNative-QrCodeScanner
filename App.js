@@ -3,19 +3,19 @@ import { Text, View, StyleSheet, Button } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 
 export default function App() {
-  const [hasPermission, setHasPermission] = useState(null);
-  const [scanned, setScanned] = useState(false);
+  const [hasPermission, setHasPermission] = useState(null); //Armazena o estado da permissão para usar a câmera
+  const [scanned, setScanned] = useState(false); //Guarda se foi ou não escaneado
 
-  useEffect(() => {
+  useEffect(() => { //Executa assim que a tela é carregada
     (async () => {
-      const { status } = await BarCodeScanner.requestPermissionsAsync();
-      setHasPermission(status === 'granted');
+      const { status } = await BarCodeScanner.requestPermissionsAsync(); //Retorna se a permissão é verdadeira ou falsa
+      setHasPermission(status === 'granted'); //Alterando o estado da permissão de acordo com o que o usuário selecionou
     })();
   }, []);
 
-  const handleBarCodeScanned = ({ type, data }) => {
+  const handleBarCodeScanned = ({ type, data }) => { //
     setScanned(true);
-    alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+    alert(`QR Code do tipo de código: "${type}" e, a informação: "${data}" Foi escaneada!`);
   };
 
   if (hasPermission === null) {
@@ -31,7 +31,7 @@ export default function App() {
         onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
         style={StyleSheet.absoluteFillObject}
       />
-      {scanned && <Button title={'Tap to Scan Again'} onPress={() => setScanned(false)} />}
+      {scanned && <Button title={'Clicque para escanear novamente'} onPress={() => setScanned(false)} />}
     </View>
   );
 }
