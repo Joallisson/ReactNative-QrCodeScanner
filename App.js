@@ -31,7 +31,7 @@ export default function App() {
         onBarCodeScanned={scanned ? undefined : handleBarCodeScanned /*Se a camera já escaneou o qrcode então, pausa o scanner, mas senão tiver sido escaneado, então chama a contante handleBarCodeScanned para executar a função de escnear*/}
         style={StyleSheet.absoluteFillObject /*A câmera usa tela inteira*/}
       />
-      {scanned && <Button title={'Clicque para escanear novamente'} onPress={() => setScanned(false)} /> /*Botão que se pressionado muda o estado de scanned para false e a câmera começa a scanear novamente*/}
+      {scanned && <Button title={'Clique aqui para escanear novamente'} onPress={() => setScanned(false)} /> /*Botão que se pressionado muda o estado de scanned para false e a câmera começa a scanear novamente*/}
     </View>
   );
 }
